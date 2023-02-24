@@ -10,10 +10,10 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Link from 'next/link';
 
-function StoreScreen({ store, product, featuredProducts }) {
+function StoreScreen({ store, product}) {
   return (
     <Layout>
-      <Carousel showArrows={true} showThumbs={false} swipeable={true} autoPlay>
+      {/* <Carousel showArrows={true} showThumbs={false} swipeable={true} autoPlay>
         {featuredProducts.map((product) => (
           <div key={product._id}>
             <Link href={`product/${product._id}`}>
@@ -21,7 +21,7 @@ function StoreScreen({ store, product, featuredProducts }) {
             </Link>
           </div>
         ))}
-      </Carousel>
+      </Carousel> */}
       <div>
         {store.map((heads) => (
           <HeadBanner key={heads._id} img1={heads.img1} />
@@ -64,12 +64,12 @@ export async function getServerSideProps(context) {
   await db.connect();
   const store = await Store.find({ _id: id });
   const product = await Product.find({ user: id });
-  const featuredProducts = await Product.find({ isFeatured: true }).lean();
+  //const featuredProducts = await Product.find({ isFeatured: true }).lean();
   await db.disconnect();
   return {
     props: {
       product: JSON.parse(JSON.stringify(product)),
-      featuredProducts: featuredProducts.map(db.convertDocToObj),
+      //featuredProducts: featuredProducts.map(db.convertDocToObj),
       store: JSON.parse(JSON.stringify(store)),
     },
   };

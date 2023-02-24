@@ -11,11 +11,17 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user?._id) token._id = user._id;
-      if (user?.isAdmin) token.isAdmin = user.isAdmin;
+       if (user?.name) token.name = user.name;
+       if (user?.city) token.city = user.city;
+       if (user?.url) token.url = user.url;
+       if (user?.isAdmin) token.isAdmin = user.isAdmin;
       return token;
     },
     async session({ session, token }) {
       if (token?._id) session.user._id = token._id;
+      if (token?.name) session.user.name = token.name;
+      if (token?.city) session.user.city = token.city;
+      if (token?.url) session.user.url = token.url;
       if (token?.isAdmin) session.user.isAdmin = token.isAdmin;
       return session;
     },
@@ -27,18 +33,17 @@ export default NextAuth({
         const user = await User.findOne({
           email: credentials.email,
         });
-        //console.log(user.password);
+       
         await db.disconnect();
         if (user && bcrypt.compare(credentials.password, user.password)) {
           return {
-            _id: user._id,
-            name: user.name,
-            image: user.img1,
-            email: user.email,
-            isAdmin: user.isAdmin,
-            // image: 'f',
-            //city: user.city,
-            // isAdmin: user.isAdmin,
+             _id: user._id,
+             name: user.name,
+             email: user.email,
+             image: user.img1,
+             city: user.city,
+             url: user.url,
+             isAdmin: user.isAdmin,
           };
         }
         throw new Error('Invalid email or password');

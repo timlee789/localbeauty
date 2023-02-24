@@ -63,18 +63,26 @@ function Layout({ title, children }) {
               {session?.user?.isAdmin? (
                  <Menu as="div" className="relative inline-block z-10">
                  <Menu.Button className="text-blue-600 font-bold text-lg">       
-                  { session.user.email }
+                  { session.user.url }
                  </Menu.Button>
                  <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white  shadow-lg ">
-                   <Menu.Item>
-                     {/* <DropdownLink
+                   {/* <Menu.Item>
+                     <DropdownLink
                        className="dropdown-link"
                        href="/admin/products/products"
                      >
                        Product List
                      </DropdownLink>
+                   </Menu.Item>*/}
+                   <Menu.Item> 
+                     <DropdownLink
+                       className="dropdown-link"
+                       href="/about"
+                     >
+                       Product userside
+                     </DropdownLink>
                    </Menu.Item>
-                   <Menu.Item> */}
+                   <Menu.Item> 
                      <DropdownLink
                        className="dropdown-link"
                        href="/admin/products/productadd"
